@@ -1,15 +1,13 @@
 // Express
 const express = require('express');
 const app = express();
-// Url del front
-const URL_FRONT = process.env.URL_FRONT;
 // http server
 const { createServer } = require('http');
 const httpServer = createServer(app);
 // path
 const path = require('path');
 // Enviroment
-const config = require('./config');
+const config = require('./config.js');
 // Web-push
 const webpush = require("./webpush/webpush.js");
 
@@ -100,7 +98,7 @@ const server = app.listen(config.PORT, () => {
     console.log(`Escuchando http://localhost:${config.PORT}`);
 
     // Conexion a la base de datos
-    sequelize.sync({ force: true })
+    sequelize.sync({ force: false })
         .then(() => {
             console.log(`Conectado correctamente a DB ${config.POSTGRES_DB_NAME}`);
             // Cargamos oficios
@@ -115,7 +113,7 @@ const server = app.listen(config.PORT, () => {
 const socketIO = require('socket.io');
 const io = socketIO(server, {
     cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001", URL_FRONT],
+        origin: ["http://localhost:3000", "http://localhost:3001", config.URL_FRONT],
     }
 });
 
