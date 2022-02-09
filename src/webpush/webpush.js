@@ -1,5 +1,6 @@
 const webpush = require('web-push');
+const config = require('./config');
 
-webpush.setVapidDetails("mailto:test@workapp.com", process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY);
+webpush.setVapidDetails("mailto:test@workapp.com", config.PUBLIC_VAPID_KEY, config.PRIVATE_VAPID_KEY);
 
 module.exports = webpush;
